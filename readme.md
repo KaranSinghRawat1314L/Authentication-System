@@ -1,100 +1,196 @@
-# 🔐 Fullstack Login System with React, Express, Prisma, and SQLite
+# Full-Stack Authentication System
 
-This project is a simple but secure fullstack login system using:
-
-- Frontend: React + TypeScript + TailwindCSS + React Hook Form + Zod
-- Backend: Node.js + Express + TypeScript + Prisma ORM
-- Database: SQLite (for dev/testing)
+A production-oriented full-stack authentication system implementing secure user registration and login with a stateless backend architecture, type-safe validation, and real-world cloud deployment.
 
 ---
 
-## ✨ Features
+## Overview
 
-- 🔐 Secure login with server-side validation
-- 🔎 Form validation using Zod + React Hook Form
-- ⚡ Backend API with Express + Prisma ORM
-- 🔄 API communication via `axios` and `@tanstack/react-query`
-- 🔒 Passwords hashed using `bcryptjs`
+This project demonstrates how authentication systems are built and deployed in real-world applications. It focuses on security, correctness, maintainability, and deployment readiness rather than UI-heavy features.
 
----
+The system is split into two independently deployable services:
 
-## 📁 Project Structure
+- **Backend API** → Node.js + Express + TypeScript
+- **Frontend Client** → React + TypeScript + Tailwind CSS
 
-├── backend/ 
-│ ├── controllers/ 
-│ │ └── userController.ts # login handler 
-│ ├── routes/ 
-│ │ └── userRoutes.ts # /api/users/login 
-│ ├── prisma/ 
-│ │ ├── schema.prisma 
-│ │ └── seed.ts # seed test users 
-│ ├── index.ts # Express app 
-│ └── .env # environment config 
-├── frontend/ 
-│ ├── components/ 
-│ │ └── LoginForm.tsx 
-│ │ └── LoginInput.tsx 
-│ ├── App.tsx 
-│ ├── index.css 
-│ ├── main.tsx
+Both services communicate via REST APIs and are deployed on modern cloud platforms.
 
 ---
 
-## 🚀 Getting Started
+## Features
 
-    ### 1. Clone the repo
-        git clone https://github.com/your-username/fullstack-login.git
-        cd fullstack-login
-    🛠️ Backend Setup
-    
-        Go to the backend folder:
-            cd backend
-    
-        Install dependencies:
-            npm install
-            Setup Prisma:
-            npx prisma generate
-            npx prisma db push
-        Seed the database:
-            npx ts-node prisma/seed.ts
-        Start the server:
-            npm run dev
-        Server runs at: http://localhost:4000
-    
-    💻 Frontend Setup
-        Go to frontend:
-            cd frontend
-        Install dependencies:
-            npm install
-            npm install react-form-hook
-            npm install @tanstack/react-query
-            npm install -D typescript @types/react @types/react-dom
-            npm install zod
-        Start React app:
-            npm run dev
-        App runs at: http://localhost:5173 (if using Vite)
-    
-    ✅ Example Test Users
-        Email	                    Password
-        Yuvraj@example.com	        123456
-        Anamika@example.com	        abcdef
-        karan@example.com	        qwerty
-    
-    📦 Tech Stack
-        React + TypeScript
-        Tailwind CSS
-        React Hook Form + Zod
-        Express.js
-        Prisma ORM
-        SQLite   
-        axios 
-        tanstack/react-query
-    
-    🧠 Future Enhancements
-        JWT authentication
-        User registration endpoint
-        Role-based auth (admin/user)
-        MongoDB or PostgreSQL support
-        Forgot Password flow
-    
-    
+### Authentication
+- User registration and login
+- Secure password hashing using **bcrypt**
+- Stateless authentication-ready backend
+- Input validation on both frontend and backend
+
+### Backend
+- Node.js + Express with TypeScript
+- Prisma ORM for database access
+- PostgreSQL (Neon – managed cloud database)
+- Centralized error handling
+- Zod-based schema validation
+- Environment-based configuration
+- Production-ready build pipeline
+
+### Frontend
+- React with TypeScript
+- Tailwind CSS for styling
+- React Hook Form + Zod for type-safe forms
+- React Query for API state management
+- Context API for global user state
+- Clean separation of UI and data logic
+
+---
+
+## Tech Stack
+
+### Frontend
+- React
+- TypeScript
+- Tailwind CSS
+- React Hook Form
+- Zod
+- React Query
+
+### Backend
+- Node.js
+- Express
+- TypeScript
+- Prisma ORM
+- PostgreSQL (Neon)
+- bcrypt
+- Zod
+
+### Deployment
+- Frontend: **Vercel**
+- Backend: **Render**
+- Database: **Neon PostgreSQL**
+
+---
+
+## Architecture
+
+Client (React)
+|
+| HTTP (REST)
+v
+Backend API (Express)
+|
+| Prisma ORM
+v
+PostgreSQL (Neon)
+
+
+### Design Decisions
+- Backend is **stateless**, allowing horizontal scaling
+- Database is cloud-hosted to persist data across deployments
+- Validation is enforced at compile-time (TypeScript) and runtime (Zod)
+- Frontend and backend are deployed independently
+
+---
+
+## Folder Structure
+
+Authentication-System/
+│
+├── Backend/
+│ ├── src/
+│ │ ├── controllers/
+│ │ ├── routes/
+│ │ ├── validators/
+│ │ └── index.ts
+│ ├── prisma/
+│ │ └── schema.prisma
+│ ├── dist/
+│ ├── package.json
+│ └── tsconfig.json
+│
+├── Frontend/
+│ ├── src/
+│ │ ├── components/
+│ │ ├── context/
+│ │ ├── pages/
+│ │ └── main.tsx
+│ ├── index.html
+│ └── package.json
+
+
+---
+
+## Environment Variables
+
+### Backend (`.env`)
+DATABASE_URL=postgresql://<username>:<password>@<host>/<db>
+PORT=5000
+
+
+### Frontend (`.env`)
+VITE_API_BASE_URL=https://authentication-system-wgz0.onrender.com
+
+
+---
+
+## Local Development
+
+### Backend
+```bash
+cd Backend
+npm install
+npx prisma generate
+npm run dev
+```
+###Frontend
+cd Frontend
+npm install
+npm run dev
+
+##Deployment
+
+###Backend (Render)
+Build Command:
+npm install && npm run build
+Start Command:
+npm start
+Uses compiled output from dist/
+
+###Frontend (Vercel)
+
+Framework: Vite + React
+
+Build Command:
+
+npm run build
+
+Output Directory:
+
+dist
+
+##Security Considerations
+
+- Passwords are never stored in plaintext
+- bcrypt hashing with salt
+- Backend validation prevents malformed requests
+- Environment variables used for secrets
+- No sensitive data exposed to the client
+
+
+##Limitations & Future Improvements
+
+- JWT-based authentication can be added
+- Refresh tokens and role-based access control
+- Rate limiting and brute-force protection
+- Email verification and password reset
+- Logging and monitoring integration
+
+##What This Project Demonstrates
+
+- Understanding of real-world authentication flows
+- Secure backend design practices
+- Type-safe full-stack development
+- Cloud-native deployment mindset
+- Clean and maintainable project structure
+
+#Author
+##Karan Singh Rawat
