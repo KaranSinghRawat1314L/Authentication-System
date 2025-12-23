@@ -10,8 +10,8 @@ This project demonstrates how authentication systems are built and deployed in r
 
 The system is split into two independently deployable services:
 
-- **Backend API** → Node.js + Express + TypeScript
-- **Frontend Client** → React + TypeScript + Tailwind CSS
+- Backend API built with Node.js, Express, and TypeScript
+- Frontend client built with React, TypeScript, and Tailwind CSS
 
 Both services communicate via REST APIs and are deployed on modern cloud platforms.
 
@@ -21,8 +21,8 @@ Both services communicate via REST APIs and are deployed on modern cloud platfor
 
 ### Authentication
 - User registration and login
-- Secure password hashing using **bcrypt**
-- Stateless authentication-ready backend
+- Secure password hashing using bcrypt
+- Stateless backend architecture
 - Input validation on both frontend and backend
 
 ### Backend
@@ -64,119 +64,162 @@ Both services communicate via REST APIs and are deployed on modern cloud platfor
 - Zod
 
 ### Deployment
-- Frontend: **Vercel**
-- Backend: **Render**
-- Database: **Neon PostgreSQL**
+- Frontend: Vercel
+- Backend: Render
+- Database: Neon PostgreSQL
 
 ---
 
 ## Architecture
 
 Client (React)
-|
-| HTTP (REST)
-v
+  |
+  | HTTP (REST)
+  v
 Backend API (Express)
-|
-| Prisma ORM
-v
+  |
+  | Prisma ORM
+  v
 PostgreSQL (Neon)
 
-
-### Design Decisions
-- Backend is **stateless**, allowing horizontal scaling
-- Database is cloud-hosted to persist data across deployments
-- Validation is enforced at compile-time (TypeScript) and runtime (Zod)
-- Frontend and backend are deployed independently
+Design decisions:
+- Backend is stateless, enabling horizontal scaling
+- Cloud-hosted database ensures persistence across deployments
+- Validation enforced at both compile-time and runtime
+- Frontend and backend deployed independently
 
 ---
 
 ## Folder Structure
 
+```
+
 Authentication-System/
 │
 ├── Backend/
-│ ├── src/
-│ │ ├── controllers/
-│ │ ├── routes/
-│ │ ├── validators/
-│ │ └── index.ts
-│ ├── prisma/
-│ │ └── schema.prisma
-│ ├── dist/
-│ ├── package.json
-│ └── tsconfig.json
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── routes/
+│   │   ├── validators/
+│   │   └── index.ts
+│   ├── prisma/
+│   │   └── schema.prisma
+│   ├── dist/
+│   ├── package.json
+│   └── tsconfig.json
 │
 ├── Frontend/
-│ ├── src/
-│ │ ├── components/
-│ │ ├── context/
-│ │ ├── pages/
-│ │ └── main.tsx
-│ ├── index.html
-│ └── package.json
+│   ├── src/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── pages/
+│   │   └── main.tsx
+│   ├── index.html
+│   └── package.json
 
+```
 
 ---
 
 ## Environment Variables
 
-### Backend (`.env`)
-DATABASE_URL=postgresql://<username>:<password>@<host>/<db>
+### Backend (.env)
+
+```
+
+DATABASE_URL=postgresql://<username>:<password>@<host>/<database>
 PORT=5000
 
+```
 
-### Frontend (`.env`)
-VITE_API_BASE_URL=https://authentication-system-wgz0.onrender.com
+### Frontend (.env)
 
+```
+
+VITE_API_BASE_URL=[https://authentication-system-wgz0.onrender.com](https://authentication-system-wgz0.onrender.com)
+
+```
 
 ---
 
 ## Local Development
 
 ### Backend
-```bash
+
+```
+
 cd Backend
 npm install
 npx prisma generate
 npm run dev
+
 ```
-###Frontend
+
+### Frontend
+
+```
+
 cd Frontend
 npm install
 npm run dev
 
-##Deployment
+```
 
-###Backend (Render)
+---
+
+## Deployment
+
+### Backend (Render)
+
 Build Command:
-npm install && npm run build
-Start Command:
-npm start
-Uses compiled output from dist/
+```
 
-###Frontend (Vercel)
+npm install && npm run build
+
+```
+
+Start Command:
+```
+
+npm start
+
+```
+
+Uses compiled output from the dist folder.
+
+---
+
+### Frontend (Vercel)
 
 Framework: Vite + React
 
 Build Command:
+```
 
 npm run build
 
+```
+
 Output Directory:
+```
 
 dist
 
-##Security Considerations
+```
+
+---
+
+## Security Considerations
 
 - Passwords are never stored in plaintext
-- bcrypt hashing with salt
+- Passwords are hashed using bcrypt with salt
 - Backend validation prevents malformed requests
-- Environment variables used for secrets
-- No sensitive data exposed to the client
+- Environment variables are used for secrets
+- No sensitive data is exposed to the client
 
+---
 
-##Limitations & Future Improvements
+## Limitations & Future Improvements
 
 - JWT-based authentication can be added
 - Refresh tokens and role-based access control
@@ -184,7 +227,9 @@ dist
 - Email verification and password reset
 - Logging and monitoring integration
 
-##What This Project Demonstrates
+---
+
+## What This Project Demonstrates
 
 - Understanding of real-world authentication flows
 - Secure backend design practices
@@ -192,5 +237,9 @@ dist
 - Cloud-native deployment mindset
 - Clean and maintainable project structure
 
-#Author
-##Karan Singh Rawat
+---
+
+## Author
+
+Karan Singh Rawat
+
